@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.SneakyThrows;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.serialization.AbstractDeserializationSchema;
+import org.apache.flink.connector.jdbc.JdbcConnectionOptions;
+import org.apache.flink.connector.jdbc.JdbcExecutionOptions;
+import org.apache.flink.connector.jdbc.JdbcSink;
 import org.apache.flink.connector.kafka.source.KafkaSource;
 import org.apache.flink.connector.kafka.source.enumerator.initializer.OffsetsInitializer;
 import org.apache.flink.streaming.api.CheckpointingMode;
@@ -14,6 +17,7 @@ import org.apache.kafka.clients.consumer.OffsetResetStrategy;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +53,30 @@ public class FlinkKafkaConsumerDemo {
                 .build();
 
         DataStreamSource<Instrumentation> dataStreamSource = executionEnvironment.fromSource(source, WatermarkStrategy.noWatermarks(), "Kafka Source");
-        dataStreamSource.print();
+        dataStreamSource.addSink(
+                JdbcSink.sink(
+                        "insert into t_action_ods (uid, action, time, ip, device_name) values (?,?,?,?,?)",
+                        (statement, action)->{
+                            statement.setString(1, action.getUid());
+                            statement.setString(2, action.getEvent());
+                            statement.setTimestamp(3, new Timestamp(action.getTime()));
+                            Map<String, Object> properties = action.getProperties();
+                            statement.setString(4, (String) properties.get("ip"));
+                            statement.setString(5, (String) properties.get("deviceName"));
+                        },
+                        JdbcExecutionOptions.builder()
+                                .withBatchSize(100)
+                                .withBatchIntervalMs(20)
+                                .withMaxRetries(2)
+                                .build(),
+                        new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
+                                .withUrl("jdbc:mysql://localhost:3306/flinkdb?useTimezone=true&serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true")
+                                .withDriverName("com.mysql.cj.jdbc.Driver")
+                                .withUsername("root")
+                                .withPassword("root")
+                                .build()
+                        )
+        );
         executionEnvironment.execute();
     }
 

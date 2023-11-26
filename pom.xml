@@ -30,6 +30,12 @@
             <artifactId>flink-connector-kafka_2.12</artifactId>
             <version>1.14.6</version>
         </dependency>
+        <!-- 使用 Oceanus 内置 JDBC Connector -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-jdbc_2.11</artifactId>
+            <version>1.14.6</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -53,6 +59,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
         </dependency>
     </dependencies>
 
