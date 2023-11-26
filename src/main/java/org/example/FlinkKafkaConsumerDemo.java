@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 从kafka读取数据后写入mysql
  * @author chuan
  * @version 1.0
  * @since 2023/11/26
@@ -34,6 +35,7 @@ public class FlinkKafkaConsumerDemo {
         executionEnvironment.enableCheckpointing(TimeUnit.SECONDS.toMillis(1), CheckpointingMode.EXACTLY_ONCE);
         executionEnvironment.setParallelism(1);
 
+        //从Kafka读取数据
         KafkaSource<Instrumentation> source = KafkaSource.<Instrumentation>builder()
                 .setBootstrapServers("192.168.2.102:9092")
                 .setTopics("logback-flume-kafka")
@@ -53,6 +55,7 @@ public class FlinkKafkaConsumerDemo {
                 .build();
 
         DataStreamSource<Instrumentation> dataStreamSource = executionEnvironment.fromSource(source, WatermarkStrategy.noWatermarks(), "Kafka Source");
+        //写入Mysql
         dataStreamSource.addSink(
                 JdbcSink.sink(
                         "insert into t_action_ods (uid, action, time, ip, device_name) values (?,?,?,?,?)",
@@ -77,6 +80,9 @@ public class FlinkKafkaConsumerDemo {
                                 .build()
                         )
         );
+        //打印到控制台
+        dataStreamSource.print();
+
         executionEnvironment.execute();
     }
 
