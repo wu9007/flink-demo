@@ -1,4 +1,4 @@
-package org.example;
+package org.example.datastream;
 
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
@@ -30,7 +30,7 @@ public class FlinkMysqlConsumerDemo {
                 .hostname("192.168.2.104")
                 .port(3306)
                 .databaseList("flinkdb")
-                .tableList("flinkdb.t_action_ods")
+                .tableList("flinkdb.t_action")
                 .username("root")
                 .password("root")
                 .deserializer(new JsonDebeziumDeserializationSchema())

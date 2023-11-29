@@ -24,6 +24,11 @@
             <artifactId>flink-streaming-java_2.12</artifactId>
             <version>1.14.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>2.7.0</version>
+        </dependency>
         <!-- 使用 Oceanus 内置 Kafka Connector -->
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -42,15 +47,31 @@
             <artifactId>flink-connector-mysql-cdc</artifactId>
             <version>2.3.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table-api-java-bridge_2.12</artifactId>
+            <artifactId>flink-clients_2.12</artifactId>
             <version>1.14.6</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-clients_2.12</artifactId>
+            <artifactId>flink-table-api-java-bridge_2.12</artifactId>
+            <version>1.14.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner_2.12</artifactId>
+            <version>1.14.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-scala_2.12</artifactId>
+            <version>1.14.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-json</artifactId>
             <version>1.14.6</version>
         </dependency>
 
@@ -92,7 +113,7 @@
                     <!-- 设置主类 -->
                     <archive>
                         <manifestEntries>
-                            <Main-Class>org.example.FlinkMysqlConsumerDemo</Main-Class>
+                            <Main-Class>org.example.datastream.FlinkMysqlConsumerDemo</Main-Class>
                         </manifestEntries>
                     </archive>
                 </configuration>

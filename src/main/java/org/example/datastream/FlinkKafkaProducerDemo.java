@@ -1,4 +1,4 @@
-package org.example;
+package org.example.datastream;
 
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.connector.base.DeliveryGuarantee;

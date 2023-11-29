@@ -1,4 +1,4 @@
-package org.example;
+package org.example.datastream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -58,7 +58,7 @@ public class FlinkKafkaConsumerDemo {
         //写入Mysql
         dataStreamSource.addSink(
                 JdbcSink.sink(
-                        "insert into t_action_ods (uid, action, time, ip, device_name) values (?,?,?,?,?)",
+                        "insert into t_action (uid, action, time, ip, device_name) values (?,?,?,?,?)",
                         (statement, action)->{
                             statement.setString(1, action.getUid());
                             statement.setString(2, action.getEvent());
