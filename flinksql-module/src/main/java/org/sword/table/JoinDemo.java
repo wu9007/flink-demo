@@ -10,7 +10,7 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
  * @version 1.0
  * @since 2023/11/29
  */
-public class Mysql2Mysql {
+public class JoinDemo {
 
     public static void main(String[] args) {
 
