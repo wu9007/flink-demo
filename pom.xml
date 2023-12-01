@@ -12,6 +12,7 @@
     <modules>
         <module>datastream-module</module>
         <module>logproducer-module</module>
+        <module>flinksql-module</module>
     </modules>
 
     <properties>
