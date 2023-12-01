@@ -2,26 +2,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>flink-demo</artifactId>
-        <groupId>org.sword</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>com.oceanus</groupId>
     <artifactId>datastream-module</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <flink.version>1.14.6</flink.version>
+    </properties>
     <dependencies>
         <!-- Oceanus 平台自带了 flink-java、flink-streaming 等依赖 -->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-java</artifactId>
-            <version>1.14.6</version>
+            <version>${flink.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java_2.12</artifactId>
-            <version>1.14.6</version>
+            <version>${flink.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -32,13 +34,13 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka_2.12</artifactId>
-            <version>1.14.6</version>
+            <version>${flink.version}</version>
         </dependency>
         <!-- 使用 Oceanus 内置 JDBC Connector -->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-jdbc_2.12</artifactId>
-            <version>1.14.6</version>
+            <version>${flink.version}</version>
         </dependency>
         <!--CDC mysql 源-->
         <dependency>
@@ -50,34 +52,40 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-clients_2.12</artifactId>
-            <version>1.14.6</version>
+            <version>${flink.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-api-java-bridge_2.12</artifactId>
-            <version>1.14.6</version>
+            <version>${flink.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner_2.12</artifactId>
-            <version>1.14.6</version>
+            <version>${flink.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-scala_2.12</artifactId>
-            <version>1.14.6</version>
+            <version>${flink.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-json</artifactId>
-            <version>1.14.6</version>
+            <version>${flink.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.7.25</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.6</version>
         </dependency>
 
         <dependency>
@@ -106,7 +114,7 @@
                     <!-- 设置主类 -->
                     <archive>
                         <manifestEntries>
-                            <Main-Class>org.sword.datastream.FlinkMysqlConsumerDemo</Main-Class>
+                            <Main-Class>org.example.datastream.FlinkMysqlConsumerDemo</Main-Class>
                         </manifestEntries>
                     </archive>
                 </configuration>
