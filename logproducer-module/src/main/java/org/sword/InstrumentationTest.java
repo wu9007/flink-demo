@@ -40,12 +40,12 @@ public class InstrumentationTest implements SmartInitializingSingleton {
             // 埋点日志
             log.info(INSTRUMENTATION_MARKER, "This is an instrumentation log message.");
 
-            String uid = RandomUtil.randomNumbers(4);
+            String userId = RandomUtil.randomEle(ListUtil.toList("1001", "1002", "1003", "1004"));
             String event = RandomUtil.randomEle(ListUtil.toList("$register", "$login"));
             Instrumentation instrumentation = Instrumentation.builder()
                     .type("action")
                     .event(event)
-                    .uid(uid)
+                    .userId(userId)
                     .time(System.currentTimeMillis())
                     .properties(
                             MapBuilder.<String, Object>create()
@@ -63,7 +63,7 @@ public class InstrumentationTest implements SmartInitializingSingleton {
     private static class Instrumentation implements Serializable {
         private String type;
         private String event;
-        private String uid;
+        private String userId;
         private Long time;
         Map<String, Object> properties;
     }

@@ -58,9 +58,9 @@ public class FlinkKafkaConsumerDemo {
         //写入Mysql
         dataStreamSource.addSink(
                 JdbcSink.sink(
-                        "insert into t_action (uid, action, time, ip, device_name) values (?,?,?,?,?)",
+                        "insert into t_action (user_id, action, action_time, ip, device_name) values (?,?,?,?,?)",
                         (statement, action)->{
-                            statement.setString(1, action.getUid());
+                            statement.setString(1, action.getUserId());
                             statement.setString(2, action.getEvent());
                             statement.setTimestamp(3, new Timestamp(action.getTime()));
                             Map<String, Object> properties = action.getProperties();
@@ -91,7 +91,7 @@ public class FlinkKafkaConsumerDemo {
     private static class Instrumentation implements Serializable {
         private String type;
         private String event;
-        private String uid;
+        private String userId;
         private Long time;
         Map<String, Object> properties;
     }
