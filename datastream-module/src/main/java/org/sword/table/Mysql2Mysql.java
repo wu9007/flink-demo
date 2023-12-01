@@ -1,4 +1,4 @@
-package org.example.table;
+package org.sword.table;
 
 import org.apache.flink.api.common.restartstrategy.RestartStrategies;
 import org.apache.flink.streaming.api.CheckpointingMode;

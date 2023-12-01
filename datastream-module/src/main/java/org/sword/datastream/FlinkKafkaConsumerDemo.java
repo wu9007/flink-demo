@@ -1,4 +1,4 @@
-package org.example.datastream;
+package org.sword.datastream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -37,7 +37,7 @@ public class FlinkKafkaConsumerDemo {
 
         //从Kafka读取数据
         KafkaSource<Instrumentation> source = KafkaSource.<Instrumentation>builder()
-                .setBootstrapServers("192.168.2.102:9092")
+                .setBootstrapServers("192.168.2.103:9092")
                 .setTopics("logback-flume-kafka")
                 .setGroupId("my-group")
                 .setStartingOffsets(OffsetsInitializer.committedOffsets(OffsetResetStrategy.EARLIEST))

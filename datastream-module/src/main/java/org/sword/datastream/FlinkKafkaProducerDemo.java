@@ -1,4 +1,4 @@
-package org.example.datastream;
+package org.sword.datastream;
 
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.connector.base.DeliveryGuarantee;
@@ -31,7 +31,7 @@ public class FlinkKafkaProducerDemo {
         Properties producerProperties = new Properties();
         producerProperties.setProperty("transaction.timeout.ms", "60000");
         KafkaSink<String> sink = KafkaSink.<String>builder()
-                .setBootstrapServers("192.168.2.102:9092")
+                .setBootstrapServers("192.168.2.103:9092")
                 .setRecordSerializer(KafkaRecordSerializationSchema.builder()
                         .setTopic("flink-demo")
                         .setValueSerializationSchema(new SimpleStringSchema())

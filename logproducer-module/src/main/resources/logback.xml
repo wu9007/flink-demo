@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    根节点configuration配置：
+    scan：此属性为true时，配置文件如果发生改变将会被重新加载，默认为true
+    scanPeriod：设置检测配置文件是否有修改的时间间隔，默认单位是毫秒，当scan为true时生效
+    debug：设置为true时，会打印logback的内部日志信息，实时查看logback内部运行情况，默认为false
+-->
+<configuration scan="true" scanPeriod="10 seconds" debug="false">
+
+    <property name="APP_NAME" value="Flink-Demo"/>
+    <property name="file_path" value="./logs"/>
+    <property name="maxHistory" value="7"/>
+
+    <!-- contextName设置上下文名称，每个logger都关联到logger上下文，默认为default。用于区分不同系统上下文（可有可无） -->
+    <contextName>${APP_NAME}</contextName>
+    <!-- conversionRule日志色彩定义 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+
+    <appender name="DEBUGLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤器，记录DEBUG级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 最经常使用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责触发滚动
+             如果文件太大可以使用sizeAndTimeBasedRollingPolicy,fileNamePattern后边加%i并添加maxFileSize-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志输出位置  可相对、和绝对路径
+                 每小时一个-->
+            <fileNamePattern>${file_path}/%d{yyyyMMddHH}_debug.log</fileNamePattern>
+            <!-- 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件，注意，删除旧文件是，那些为了归档而建立的目录也会被删除
+                 如果滚动是按照天就填天数，小时就填小时数-->
+            <maxHistory>${maxHistory}</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="INFOLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤器，记录INFO级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 最经常使用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责触发发滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志输出位置  可相对、和绝对路径 -->
+            <fileNamePattern>${file_path}/%d{yyyyMMddHH}_info.log</fileNamePattern>
+            <!-- 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件假设设置每月滚动，删除以前的旧文件。注意，删除旧文件是，那些为了归档而建立的目录也会被删除-->
+            <maxHistory>${maxHistory}</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="WARNLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 最经常使用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责触发发滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志输出位置  可相对、和绝对路径 -->
+            <fileNamePattern>${file_path}/%d{yyyyMMddHH}_warn.log</fileNamePattern>
+            <!-- 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件假设设置每月滚动，删除以前的旧文件。注意，删除旧文件是，那些为了归档而建立的目录也会被删除-->
+            <maxHistory>${maxHistory}</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="ERRORLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤器，记录ERROR级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <!-- 最经常使用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责触发发滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志输出位置  可相对、和绝对路径 -->
+            <fileNamePattern>${file_path}/%d{yyyyMMddHH}_error.log</fileNamePattern>
+            <!-- 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件假设设置每月滚动，删除以前的旧文件。注意，删除旧文件是，那些为了归档而建立的目录也会被删除-->
+            <maxHistory>${maxHistory}</maxHistory>
+            <cleanHistoryOnStart>true</cleanHistoryOnStart>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FLUME" class="com.teambytes.logback.flume.FlumeLogstashV1Appender">
+        <flumeAgents>192.168.2.103:4545</flumeAgents>
+        <flumeProperties>
+            connect-timeout=4000;
+            request-timeout=8000
+        </flumeProperties>
+        <batchSize>100</batchSize>
+        <reportingWindow>1000</reportingWindow>
+        <additionalAvroHeaders>
+            myHeader = myValue
+        </additionalAvroHeaders>
+        <application>${APP_NAME}</application>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %marker:%msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!--
+        日志输出格式:
+        %d:             表示日期时间，
+        %5p:            级别从左显示5个字符宽度，
+        ${PID:- }:      pid
+        %15.20t:        线程名字(如果宽度不足15，左侧补空白；如果宽度超过20，从左侧截断)
+        %logger{50}:    表示logger名字最长50个字符，否则按照句点分割
+        %%-4L:          行号，保留后面四位字符宽度
+        %m:             日志消息
+        %n:             换行符
+        ${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}:
+    -->
+    <property name="consoleLayoutPattern"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.25t]){faint} %clr([%X{logRequestId}]){faint}  %clr(%-40.100logger{100} Line:%-4L){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <!--
+        appender输出方式：
+        ConsoleAppender控制台输出
+    -->
+    <!-- 控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <charset>UTF-8</charset>
+            <pattern>${consoleLayoutPattern}</pattern>
+        </encoder>
+    </appender>
+    <!-- 生产环境下，将此级别配置为适合的级别，以免日志文件太多或影响程序性能 -->
+    <!--
+        <root>元素也是<logger>元素,logger。只有一个level属性。
+        root 元素配置根 logger。该元素有一个 level 属性。没有 name 属性，因为已经被命名为“root”
+        <root>可以包含零个或多个<appender-ref>元素,标识这个appender将会添加到这个logger。
+    -->
+    <root level="INFO">
+        <!--        生产环境必须将CONSOLE删掉，不然会死锁导致程序假死-->
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FLUME"/>
+        <!--        <appender-ref ref="DEBUGLOG"/>-->
+        <!--        <appender-ref ref="INFOLOG"/>-->
+        <!--        <appender-ref ref="WARNLOG"/>-->
+        <!--        <appender-ref ref="ERRORLOG"/>-->
+    </root>
+
+</configuration>

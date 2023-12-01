@@ -1,4 +1,4 @@
-package org.example.datastream;
+package org.sword.datastream;
 
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
