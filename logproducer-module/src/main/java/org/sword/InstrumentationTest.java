@@ -46,11 +46,11 @@ public class InstrumentationTest implements SmartInitializingSingleton {
                     .type("action")
                     .event(event)
                     .userId(userId)
-                    .time(System.currentTimeMillis())
+                    .time(System.currentTimeMillis() - RandomUtil.randomLong(0, 10000000000L))
                     .properties(
                             MapBuilder.<String, Object>create()
                                     .put("deviceName", RandomUtil.randomEle(ListUtil.toList("oppo", "iphone", "xiaomi", "huawei")))
-                                    .put("ip", "192.168.2." +  RandomUtil.randomInt(255))
+                                    .put("ip", "192.168.2." + RandomUtil.randomInt(255))
                                     .build()
                     )
                     .build();
