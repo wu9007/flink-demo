@@ -34,7 +34,7 @@ public class InstrumentationTest implements SmartInitializingSingleton {
     @Override
     public void afterSingletonsInstantiated() {
         while (true) {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
             // 程序运行日志
             log.info("This is a program log message.");
             // 埋点日志

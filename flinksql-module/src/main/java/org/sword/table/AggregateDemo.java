@@ -65,8 +65,8 @@ public class AggregateDemo {
         String aggregateSql = "INSERT INTO dws_daily_stats " +
                 "SELECT " +
                 "    CAST(action_time AS DATE)             AS login_date, " +
-                "    COUNT(IF(action = '$login', 1, 0))    AS login_count, " +
-                "    COUNT(IF(action = '$register', 1, 0)) AS register_count " +
+                "    SUM(IF(action = '$login', 1, 0))    AS login_count, " +
+                "    SUM(IF(action = '$register', 1, 0)) AS register_count " +
                 "FROM t_user_action " +
                 "GROUP BY CAST(action_time AS DATE) ";
         streamTableEnvironment.executeSql(aggregateSql);
